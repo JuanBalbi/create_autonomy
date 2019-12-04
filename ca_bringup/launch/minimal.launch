@@ -11,8 +11,13 @@
   <!-- IMU -->
   <!-- <include file="$(find ca_imu)/launch/imu.launch"/> -->
 
-  <!-- TODO: Add sensors:
-  * Intel RealSense R200
-  * RPLidar A2
- -->
+  <!--
+    Mapping sensors:
+
+    * RPLidar A2: lidar
+    * ASUS Xtion Pro: pointcloud
+  -->
+  <arg name="mapping_sensor" default="$(optenv MAPPING_SENSOR lidar)"/>
+  <include if="$(eval arg('mapping_sensor') == lidar)" file="$(find rplidar_ros)/launch/rplidar.launch"/>
+  <include if="$(eval arg('mapping_sensor') == pointcloud)" file="$(find openni2_launch)/launch/openni2.launch"/>
 </launch>
