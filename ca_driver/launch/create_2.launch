@@ -2,9 +2,11 @@
 <launch>
   <arg name="config" default="$(find ca_driver)/config/default.yaml" />
   <arg name="desc" default="true" />
+  <arg name="id" default="$(optenv ID 1)"/>
 
   <node name="ca_driver" pkg="ca_driver" type="ca_driver" output="screen">
     <rosparam command="load" file="$(arg config)" />
+    <param name="tf_prefix" value="create$(arg id)_tf"/>
     <param name="robot_model" value="CREATE_2" />
   </node>
 

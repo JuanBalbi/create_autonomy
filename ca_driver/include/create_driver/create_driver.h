@@ -119,6 +119,7 @@ private:
   int baud_;
   double latch_duration_;
   bool publish_tf_;
+  std::string tf_prefix_;
 
   void cmdVelCallback(const geometry_msgs::TwistConstPtr& msg);
   void debrisLEDCallback(const std_msgs::BoolConstPtr& msg);

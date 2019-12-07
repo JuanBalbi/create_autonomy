@@ -48,6 +48,7 @@ CreateDriver::CreateDriver(ros::NodeHandle& nh, ros::NodeHandle& ph)
   priv_nh_.param<std::string>("robot_model", robot_model_name, "CREATE_2");
   priv_nh_.param<double>("latch_cmd_duration", latch_duration_, 0.2);
   priv_nh_.param<bool>("publish_tf", publish_tf_, true);
+  priv_nh_.param<std::string>("tf_prefix", tf_prefix_, "create1_tf");
 
   if (robot_model_name == "ROOMBA_400") {
     model_ = create::RobotModel::ROOMBA_400;
@@ -81,7 +82,7 @@ CreateDriver::CreateDriver(ros::NodeHandle& nh, ros::NodeHandle& ph)
   ROS_INFO("[CREATE] Battery level %.2f %%", (robot_->getBatteryCharge() / robot_->getBatteryCapacity()) * 100.0);
 
   // Set frame_id's
-  const std::string str_base_footprint("base_footprint");
+  const std::string str_base_footprint(tf::resolve(tf_prefix_, "base_footprint"));
   mode_msg_.header.frame_id = str_base_footprint;
   bumper_msg_.header.frame_id = str_base_footprint;
   cliff_msg_.header.frame_id = str_base_footprint;
