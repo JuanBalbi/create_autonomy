@@ -19,9 +19,7 @@
     * ASUS Xtion Pro: pointcloud
   -->
   <arg name="mapping_sensor" default="$(optenv MAPPING_SENSOR lidar)"/>
-  <include if="$(eval arg('mapping_sensor') == 'lidar')" file="$(find rplidar_ros)/launch/rplidar.launch">
-    <remap from="scan" to="/laser/scan"/>
-  </include>
+  <include if="$(eval arg('mapping_sensor') == 'lidar')" file="$(find rplidar_ros)/launch/rplidar.launch"/>
   <param name="/rplidarNode/serial_port" value="/dev/ttyUSB1"/>
   <param name="/rplidarNode/frame_id" value="/create$(arg id)_tf/laser_link"/>
   <include if="$(eval arg('mapping_sensor') == 'pointcloud')" file="$(find openni2_launch)/launch/openni2.launch"/>
