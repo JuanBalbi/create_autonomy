@@ -83,14 +83,16 @@ CreateDriver::CreateDriver(ros::NodeHandle& nh, ros::NodeHandle& ph)
 
   // Set frame_id's
   const std::string str_base_footprint(tf::resolve(tf_prefix_, "base_footprint"));
+  const std::string str_odom(tf::resolve(tf_prefix_, "odom"));
+  
   mode_msg_.header.frame_id = str_base_footprint;
   bumper_msg_.header.frame_id = str_base_footprint;
   cliff_msg_.header.frame_id = str_base_footprint;
   wheeldrop_msg_.header.frame_id = str_base_footprint;
   charging_state_msg_.header.frame_id = str_base_footprint;
-  tf_odom_.header.frame_id = "odom";
+  tf_odom_.header.frame_id = str_odom;
   tf_odom_.child_frame_id = str_base_footprint;
-  odom_msg_.header.frame_id = "odom";
+  odom_msg_.header.frame_id = str_odom;
   odom_msg_.child_frame_id = str_base_footprint;
   joint_state_msg_.name.resize(2);
   joint_state_msg_.position.resize(2);
